@@ -1,0 +1,18 @@
+SELECT nombre FROM producto;
+SELECT nombre, precio FROM producto;
+SELECT * FROM producto;
+SELECT nombre, ROUND (precio * 1.1, 2) FROM producto;
+SELECT nombre AS nombre_producto, precio AS precio_euros, precio * 1.1 AS precio_dolares FROM producto;
+SELECT UPPER(nombre, precio) FROM producto;
+SELECT LOWER(nombre, precio) FROM producto;
+SELECT nombre, UPPER(SUBSTR(nombre,2)) FROM fabricante;
+SELECT nombre, precio, ROUND(price,1) AS precio_redondeado FROM producto;
+SELECT nombre, precio, ROUND(price,0) AS precio_redondeado FROM producto;
+SELECT codigo_fabricante FROM producto;
+SELECT DISTINCT codigo_fabricante FROM producto;
+SELECT nombre FROM fabricante ORDER BY nombre ASC;
+SELECT nombre FROM fabricante ORDER BY nombre DESC;
+SELECT nombre FROM producto ORDER BY nombre ASC, precio DESC;
+SELECT * FROM fabricante LIMIT 5;
+SELECT * FROM fabricante LIMIT 2 OFFSET 3;
+SELECT nombre, precio FROM producto ORDER BY precio ASC LIMIT 1;
