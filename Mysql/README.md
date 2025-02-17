@@ -1,4 +1,4 @@
-# 📌 MySQL Table Creation Exercises
+# 📌 MySQL Data Structure Exercises
 
 ## 📖 Overview
 This repository contains structured MySQL table creation exercises categorized into three levels, covering different database modeling scenarios.
