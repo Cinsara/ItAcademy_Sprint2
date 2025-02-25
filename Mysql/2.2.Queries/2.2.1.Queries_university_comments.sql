@@ -6,15 +6,15 @@ SELECT apellido1, apellido2, nombre FROM persona WHERE tipo = 'alumno' ORDER BY 
 
 # 2. Esbrina el nom i els dos cognoms dels alumnes que no han donat d'alta el seu número de telèfon en la base de dades.
 
-SELECT apellido1, apellido2, nombre FROM persona WHERE telefono = NULL;
+SELECT apellido1, apellido2, nombre FROM persona WHERE telefono IS NULL;
 
 # 3. Retorna el llistat dels alumnes que van néixer en 1999.
 
-SELECT * FROM persona WHERE fecha_nacimiento = 1999;
+SELECT * FROM persona WHERE YEAR(fecha_nacimiento) = 1999;
 
 # 4. Retorna el llistat de professors/es que no han donat d'alta el seu número de telèfon en la base de dades i a més el seu NIF acaba en K.
 
-SELECT * FROM persona WHERE tipo = 'profesor' AND nif LIKE 'K%';
+SELECT * FROM persona WHERE tipo = 'profesor' AND telefono IS NULL AND nif LIKE '%K';
 
 # 5. Retorna el llistat de les assignatures que s'imparteixen en el primer quadrimestre, en el tercer curs del grau que té l'identificador 7.
 
@@ -34,7 +34,7 @@ SELECT DISTINCT d.nombre AS departamento FROM departamento d JOIN profesor p ON 
 
 # 9. Retorna un llistat amb tots els alumnes que s'han matriculat en alguna assignatura durant el curs escolar 2018/2019.
 
-SELECT DISTINCT per.nombre, per.apellido1, per.apellido2, per.nif FROM persona per JOIN alumno_se_matricula_asignatura alm ON per.id = alm.id_alumno WHERE alm.id_curso_escolar = '2018/2019';
+SELECT DISTINCT per.nombre, per.apellido1, per.apellido2, per.nif FROM persona per JOIN alumno_se_matricula_asignatura alm ON per.id = alm.id_alumno JOIN curso_escolar c ON alm.id_curso_escolar = c.id WHERE alm.id_curso_escolar = '2018/2019';
 
 -- Consultes LEFT JOIN i RIGHT JOIN
 
@@ -60,7 +60,7 @@ SELECT a.nombre FROM asignatura a LEFT JOIN persona p ON a.id_profesor = p.id WH
 
 # 6. Retorna un llistat amb tots els departaments que no han impartit assignatures en cap curs escolar.
 
-SELECT DISTINCT d.nombre FROM departamento d LEFT JOIN profesor prof ON d.id = prof.id_departamento LEFT JOIN asignatura a ON  prof.id_profesor = a.id_profesor WHERE a.id IS NULL; 
+SELECT DISTINCT d.nombre FROM departamento d LEFT JOIN asignatura a ON d.id = a.id_departamento WHERE a.id IS NULL; 
 
 -- Consultes resum
 
@@ -70,7 +70,7 @@ SELECT COUNT(nombre) FROM persona WHERE tipo = 'alumno';
 
 # 2. Calcula quants alumnes van néixer en 1999.
 
-SELECT COUNT(fecha_nacimiento) FROM persona WHERE tipo = 'alumno' AND fecha_nacimiento LIKE '1999%';
+SELECT COUNT(*) FROM persona WHERE tipo = 'alumno' AND YEAR(fecha_nacimiento) = 1999;
 
 # 3. Calcula quants professors/es hi ha en cada departament. El resultat només ha de mostrar dues columnes, una amb el nom del departament i una altra amb el nombre de professors/es que hi ha en aquest departament. El resultat només ha d'incloure els departaments que tenen professors/es associats i haurà d'estar ordenat de major a menor pel nombre de professors/es.
 
