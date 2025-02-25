@@ -34,10 +34,10 @@ SELECT p.nombre AS nombre_producto, p.precio AS precio_producto, f.nombre AS fab
 SELECT p.nombre AS nombre_producto, p.precio AS precio_producto, f.nombre AS fabricante FROM producto p JOIN fabricante f ON p.codigo_fabricante = f.codigo WHERE p.precio >= 180 ORDER BY p.precio DESC, p.nombre ASC;
 SELECT codigo, nombre FROM fabricante WHERE codigo IN(SELECT codigo_fabricante FROM producto);
 SELECT f.codigo AS codigo_fabricante, f.nombre AS fabricante, p.nombre AS producto FROM fabricante f CROSS JOIN producto p;
-SELECT f.nombre AS fabricante FROM fabricante f LEFT JOIN producto p ON f.codigo = p.codigo_fabricante WHERE p.codigo = NULL;
+SELECT f.nombre AS fabricante FROM fabricante f LEFT JOIN producto p ON f.codigo = p.codigo_fabricante WHERE p.codigo IS NULL;
 SELECT nombre FROM producto WHERE codigo_fabricante = (SELECT codigo FROM fabricante WHERE nombre = 'Lenovo');
 SELECT * FROM producto WHERE precio = (SELECT MAX(precio) FROM producto WHERE codigo_fabricante = (SELECT codigo FROM fabricante WHERE nombre = 'Lenovo'));
-SELECT p.nombre AS nombre_producto, f.nombre AS fabricante FROM producto p JOIN fabricante f WHERE p.precio = (SELECT MAX(precio) FROM producto WHERE codigo_fabricante = (SELECT codigo FROM fabricante WHERE nombre = 'Lenovo'));
-SELECT p.nombre, f.nombre AS fabricante FROM producto p JOIN fabricante f WHERE p.precio = (SELECT MIN(precio) FROM producto WHERE codigo_fabricante = (SELECT codigo FROM fabricante WHERE nombre = 'Hewlett-Packard'));
+SELECT p.nombre AS nombre_producto, f.nombre AS fabricante FROM producto p JOIN fabricante f ON p.codigo_fabricante = f.codigo  WHERE p.precio = (SELECT MAX(precio) FROM producto WHERE codigo_fabricante = (SELECT codigo FROM fabricante WHERE nombre = 'Lenovo'));
+SELECT p.nombre, f.nombre AS fabricante FROM producto p JOIN fabricante f ON p.codigo_fabricante = f.codigo WHERE p.precio = (SELECT MIN(precio) FROM producto WHERE codigo_fabricante = (SELECT codigo FROM fabricante WHERE nombre = 'Hewlett-Packard'));
 SELECT * FROM producto WHERE precio >= (SELECT MAX(precio) FROM producto WHERE codigo_fabricante = (SELECT codigo FROM fabricante WHERE nombre = 'Lenovo'));
 SELECT nombre, precio FROM producto WHERE precio > (SELECT AVG(precio) FROM producto WHERE codigo_fabricante =(SELECT codigo FROM fabricante WHERE nombre = 'Asus')) AND codigo_fabricante = (SELECT codigo FROM fabricante WHERE nombre = 'Asus');
