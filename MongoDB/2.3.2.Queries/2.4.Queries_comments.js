@@ -26,7 +26,7 @@ db.restaurants.find({borough:"Bronx"}).limit(5);
 
 // 7. Escriu una consulta per mostrar el pròxim 5 restaurants després de saltar els primers 5 del Bronx.
 
-db.restaurants.find({borough:"Bronx"}).skip(5);
+db.restaurants.find({borough:"Bronx"}).skip(5).limit(5);
 
 // 8. Escriu una consulta per trobar els restaurants que tenen un score de més de 90.
 
@@ -67,4 +67,4 @@ db.restaurants.find({name: {$regex: 'Reg', $options: "i"}}, {name:1, restaurant_
 // 17. Escriu una consulta per trobar els restaurants que pertanyen al Bronx i van preparar qualsevol plat americà o xinès.
 
 db.restaurants.find({cuisine: {$regex: 'American|Chinese', $options: "i"}}, {name:1, restaurant_id:1, borough:1, cuisine:1, _id:0});
-
+db.restaurants.find({borough:"Bronx", $or:[{cuisine:"American"},{cuisine:"Chinese"}]});

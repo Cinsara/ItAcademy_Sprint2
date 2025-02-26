@@ -1,0 +1,3 @@
+- Corregido por Antonio.
+
+Me indicó que en el primer ejercicio debía hacer una colección que comience con Óptica, con la tienda, y que desde ahí sacase el resto de documentos. Igualmente me indicó que debía sacar la graduación como un objeto con dos campos distintos.
